@@ -9,3 +9,26 @@
 - 'src/' : Dockerfile, index.html 등 코드
 - 'notes/' : 오류/설명/메모 기록
 - 'README.md' : 전체 실습 개요
+
+[2026-02-14 Docker 실습 핵심 요약]
+
+1. GitHub 업로드 루틴 (필수 암기)
+   - git add . (한 칸 띄우고 점!)
+   - git commit -m "메시지"
+   - git push origin main
+
+2. Docker Volume vs Bind-Mount 차이
+   - 볼륨(Volume): 도커가 관리하는 영역에 저장. 보안 좋고 깔끔함. (예: DB 데이터)
+     명령어: -v 볼륨명:/컨테이너/경로
+   - 바인드 마운트(Bind-Mount): 내 맥북 폴더와 직접 연결. 코드 수정 시 바로 반영됨. (예: 소스 코드)
+     명령어: -v $(pwd)/폴더명:/컨테이너/경로
+
+3. 트러블슈팅 및 꿀팁
+   - Error (No such image): 로컬에 이미지가 없을 때 발생 -> docker pull [이미지명] 먼저 실행.
+   - Error (ping: no such file): 이미지(예: Rocky Linux)가 너무 가벼워서 도구가 없는 것 -> dnf install iputils로 설치 필요.
+   - 탭탭(Tab-Tab) 자동완성: .zshrc 설정 후 docker rmi [Tab] 누르면 이미지 ID 목록 뜸.
+   - 이미지 삭제: ID 전체 안 치고 앞 3글자만 쳐도 삭제 가능 (예: docker rmi a7b).
+
+4. 컨테이너 삭제 절차
+   - 정석: docker stop -> docker rm
+   - 강제(빠름): docker rm -f [이름]
