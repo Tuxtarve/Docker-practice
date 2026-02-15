@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  my-web:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      # [바인드 마운트] 내 맥북의 web-content 폴더를 컨테이너 내부와 연결
+      - ./web-content:/usr/share/nginx/html
+    restart: always
+
+  my-db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password123
+    volumes:
+      # [볼륨] DB 데이터는 안전하게 도커 볼륨에 저장
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
